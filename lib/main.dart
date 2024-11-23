@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'webcam.dart';
+
 import 'about.dart';
 
 void main() {
@@ -71,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             )),
-            // buildWebcamButtons(),
+            buildWebcamButtons(),
             // buildTemperatureGalleryButtons(),
             // buildAppartmentButtons(),
             // buildRoomButtons(),
@@ -149,6 +151,51 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ));
+  }
+
+  buildWebcamButtons() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Text('Webcams'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildWebcamButton('Berg', WebcamSelection.berg),
+              buildWebcamButton('Tal', WebcamSelection.tal),
+              buildWebcamButton('Tal Panorama', WebcamSelection.pantal),
+              buildWebcamButton('Felsen', WebcamSelection.felsen),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildWebcamButton(String buttonText, WebcamSelection selection) {
+    return TextButton(
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.videocam,
+              size: 40,
+            ),
+            Text(buttonText)
+          ],
+        ),
+        style: TextButton.styleFrom(foregroundColor: Colors.black),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Webcam(),
+              settings: RouteSettings(
+                arguments: selection,
+              ),
+            ),
+          );
+        });
   }
 
 }
