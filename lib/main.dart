@@ -61,31 +61,94 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget>[AboutWidget()],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView(
+          padding: const EdgeInsets.all(10),
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Image.asset('assets/brandtnerhof_logo.gif'),
+            Container(
+                child: Text(
+              'Willkommen auf dem Brandtnerhof',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18),
+            )),
+            // buildWebcamButtons(),
+            // buildTemperatureGalleryButtons(),
+            // buildAppartmentButtons(),
+            // buildRoomButtons(),
+            // buildBookingButtons(),
+            buildContactInformation(),
+          ],
+        ));
+  }
+
+  Container buildContactInformation() {
+    return Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Kontakt:\n',
+              style: TextStyle(fontSize: 20),
+            ),
+            Row(
+              children: <Widget>[
+                Text(
+                  'Elisabeth und\nDieter Jungvogel\nStrub 14\nA-6384 Waidring\n'
+                  'Österreich',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  icon: Icon(Icons.map),
+                  onPressed: () {} //=> android_intent.Intent()
+                  //   ..setAction(android_action.Action.ACTION_VIEW)
+                  //   ..setData(Uri(
+                  //       scheme: 'geo',
+                  //       path: '47.58222,12.62509',
+                  //       queryParameters: {'z': '18'}))
+                  //   ..startActivity(),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Text(
+                  'Tel.: +43 5353 5427',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  icon: Icon(Icons.phone),
+                  onPressed: () {} // => android_intent.Intent()
+                  //   ..setAction(android_action.Action.ACTION_DIAL)
+                  //   ..setData(Uri(scheme: 'tel', path: '+43 5353 5427'))
+                  //   ..startActivity(),
+                ),
+              ],
+            ),
+            Text(
+              'Fax.: +43 5353 54273',
+              style: TextStyle(fontSize: 20),
+            ),
+            Row(
+              children: <Widget>[
+                Text(
+                  'Email: office@brandtnerhof.at',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  icon: Icon(Icons.mail),
+                  onPressed: () {} //=> android_intent.Intent()
+                  //   ..setAction(android_action.Action.ACTION_SEND)
+                  //   ..setType("message/rfc822")
+                  //   ..putExtra(Extra.EXTRA_EMAIL, ["office@brandtnerhof.at"])
+                  //   ..putExtra(
+                  //       Extra.EXTRA_SUBJECT, "Anfrage über Brandtnerhof App")
+                  //   ..startActivity(),
+                ),
+              ],
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
+
 }
