@@ -43,7 +43,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -53,26 +52,25 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-        actions: <Widget>[AboutWidget()],
-      ),
+        appBar: AppBar(
+          // TRY THIS: Try changing the color here to a specific color (to
+          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+          // change color while the other colors stay the same.
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+          actions: <Widget>[const AboutWidget()],
+        ),
         body: ListView(
           padding: const EdgeInsets.all(10),
           children: <Widget>[
             Image.asset('assets/brandtnerhof_logo.gif'),
-            Container(
-                child: Text(
+            const Text(
               'Willkommen auf dem Brandtnerhof',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
-            )),
+            ),
             buildWebcamButtons(),
             // buildTemperatureGalleryButtons(),
             // buildAppartmentButtons(),
@@ -89,64 +87,64 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Kontakt:\n',
               style: TextStyle(fontSize: 20),
             ),
             Row(
               children: <Widget>[
-                Text(
+                const Text(
                   'Elisabeth und\nDieter Jungvogel\nStrub 14\nA-6384 Waidring\n'
                   'Österreich',
                   style: TextStyle(fontSize: 20),
                 ),
                 IconButton(
-                  icon: Icon(Icons.map),
-                  onPressed: () {} //=> android_intent.Intent()
-                  //   ..setAction(android_action.Action.ACTION_VIEW)
-                  //   ..setData(Uri(
-                  //       scheme: 'geo',
-                  //       path: '47.58222,12.62509',
-                  //       queryParameters: {'z': '18'}))
-                  //   ..startActivity(),
-                ),
+                    icon: const Icon(Icons.map),
+                    onPressed: () {} //=> android_intent.Intent()
+                    //   ..setAction(android_action.Action.ACTION_VIEW)
+                    //   ..setData(Uri(
+                    //       scheme: 'geo',
+                    //       path: '47.58222,12.62509',
+                    //       queryParameters: {'z': '18'}))
+                    //   ..startActivity(),
+                    ),
               ],
             ),
             Row(
               children: <Widget>[
-                Text(
+                const Text(
                   'Tel.: +43 5353 5427',
                   style: TextStyle(fontSize: 20),
                 ),
                 IconButton(
-                  icon: Icon(Icons.phone),
-                  onPressed: () {} // => android_intent.Intent()
-                  //   ..setAction(android_action.Action.ACTION_DIAL)
-                  //   ..setData(Uri(scheme: 'tel', path: '+43 5353 5427'))
-                  //   ..startActivity(),
-                ),
+                    icon: const Icon(Icons.phone),
+                    onPressed: () {} // => android_intent.Intent()
+                    //   ..setAction(android_action.Action.ACTION_DIAL)
+                    //   ..setData(Uri(scheme: 'tel', path: '+43 5353 5427'))
+                    //   ..startActivity(),
+                    ),
               ],
             ),
-            Text(
+            const Text(
               'Fax.: +43 5353 54273',
               style: TextStyle(fontSize: 20),
             ),
             Row(
               children: <Widget>[
-                Text(
+                const Text(
                   'Email: office@brandtnerhof.at',
                   style: TextStyle(fontSize: 20),
                 ),
                 IconButton(
-                  icon: Icon(Icons.mail),
-                  onPressed: () {} //=> android_intent.Intent()
-                  //   ..setAction(android_action.Action.ACTION_SEND)
-                  //   ..setType("message/rfc822")
-                  //   ..putExtra(Extra.EXTRA_EMAIL, ["office@brandtnerhof.at"])
-                  //   ..putExtra(
-                  //       Extra.EXTRA_SUBJECT, "Anfrage über Brandtnerhof App")
-                  //   ..startActivity(),
-                ),
+                    icon: const Icon(Icons.mail),
+                    onPressed: () {} //=> android_intent.Intent()
+                    //   ..setAction(android_action.Action.ACTION_SEND)
+                    //   ..setType("message/rfc822")
+                    //   ..putExtra(Extra.EXTRA_EMAIL, ["office@brandtnerhof.at"])
+                    //   ..putExtra(
+                    //       Extra.EXTRA_SUBJECT, "Anfrage über Brandtnerhof App")
+                    //   ..startActivity(),
+                    ),
               ],
             ),
           ],
@@ -155,10 +153,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   buildWebcamButtons() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: <Widget>[
-          Text('Webcams'),
+          const Text('Webcams'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -177,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return TextButton(
         child: Column(
           children: <Widget>[
-            Icon(
+            const Icon(
               Icons.videocam,
               size: 40,
             ),
@@ -189,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Webcam(),
+              builder: (context) => const Webcam(),
               settings: RouteSettings(
                 arguments: selection,
               ),
@@ -197,5 +195,4 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         });
   }
-
 }
