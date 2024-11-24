@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'webcam.dart';
 
+import 'gallery.dart';
+import 'temperature.dart';
+//import 'zimmerview.dart';
 import 'about.dart';
 
 void main() {
@@ -72,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 18),
             ),
             buildWebcamButtons(),
-            // buildTemperatureGalleryButtons(),
+            buildTemperatureGalleryButtons(),
             // buildAppartmentButtons(),
             // buildRoomButtons(),
             // buildBookingButtons(),
@@ -191,6 +194,67 @@ class _MyHomePageState extends State<MyHomePage> {
               settings: RouteSettings(
                 arguments: selection,
               ),
+            ),
+          );
+        });
+  }
+
+  buildTemperatureGalleryButtons() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildGalleryButton(),
+              buildTemperatureButton(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildGalleryButton() {
+    return TextButton(
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.collections,
+              size: 40,
+            ),
+            Text('Bildergalerie')
+          ],
+        ),
+        style: TextButton.styleFrom(foregroundColor: Colors.black),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => GalleryWidget(),
+            ),
+          );
+        });
+  }
+
+  buildTemperatureButton() {
+    return TextButton(
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.equalizer,
+              size: 40,
+            ),
+            Text('Temperatur\n(letzte 24h)')
+          ],
+        ),
+        style: TextButton.styleFrom(foregroundColor: Colors.black),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TemperatureView(),
             ),
           );
         });
