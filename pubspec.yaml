@@ -32,7 +32,9 @@ dependencies:
     sdk: flutter
   package_info_plus: 8.1.1
   webview_flutter: 4.10.0
-  photo_view: 0.15.0
+  http: ^1.2.2
+  cached_network_image: ^3.4.1 # Für das effiziente Laden der Bilder
+  photo_view: ^0.15.0 # Für die Vollbildanzeige
 
 
   # The following adds the Cupertino Icons font to your application.
