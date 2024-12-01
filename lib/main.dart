@@ -1,10 +1,12 @@
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:brandtnerhof/zimmerview.dart';
 import 'package:flutter/material.dart';
 import 'webcam.dart';
-
 import 'gallery.dart';
 import 'temperature.dart';
 //import 'zimmerview.dart';
 import 'about.dart';
+import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Brandtnerhof',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Brandtnerhof Waidring'),
@@ -76,8 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             buildWebcamButtons(),
             buildTemperatureGalleryButtons(),
-            // buildAppartmentButtons(),
-            // buildRoomButtons(),
+            buildAppartmentButtons(),
             // buildBookingButtons(),
             buildContactInformation(),
           ],
@@ -85,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Container buildContactInformation() {
+    const double fonstsize = 18;
     return Container(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -92,14 +94,14 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'Kontakt:\n',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: fonstsize),
             ),
             Row(
               children: <Widget>[
                 const Text(
                   'Elisabeth und\nDieter Jungvogel\nStrub 14\nA-6384 Waidring\n'
                   'Österreich',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: fonstsize),
                 ),
                 IconButton(
                     icon: const Icon(Icons.map),
@@ -117,26 +119,29 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 const Text(
                   'Tel.: +43 5353 5427',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: fonstsize),
                 ),
                 IconButton(
                     icon: const Icon(Icons.phone),
-                    onPressed: () {} // => android_intent.Intent()
-                    //   ..setAction(android_action.Action.ACTION_DIAL)
-                    //   ..setData(Uri(scheme: 'tel', path: '+43 5353 5427'))
-                    //   ..startActivity(),
-                    ),
+                    onPressed: () {
+                      AndroidIntent intent = AndroidIntent(
+                        action: 'action_view',
+                        data: Uri(scheme: 'tel', path: '+43 5353 5427')
+                            .toString(),
+                      );
+                      intent.launch();
+                    }),
               ],
             ),
             const Text(
               'Fax.: +43 5353 54273',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: fonstsize),
             ),
             Row(
               children: <Widget>[
                 const Text(
                   'Email: office@brandtnerhof.at',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: fonstsize),
                 ),
                 IconButton(
                     icon: const Icon(Icons.mail),
@@ -152,6 +157,25 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ));
+  }
+
+  buildAppartmentButtons() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Text('Übersicht Appartments'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildRoomButton('Waidring'),
+              buildRoomButton('Lofer'),
+              buildRoomButton('Penthouse'),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   buildWebcamButtons() {
@@ -176,6 +200,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   buildWebcamButton(String buttonText, WebcamSelection selection) {
     return TextButton(
+        style: TextButton.styleFrom(foregroundColor: Colors.black),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Webcam(selection: selection),
+              settings: RouteSettings(
+                arguments: selection,
+              ),
+            ),
+          );
+        },
         child: Column(
           children: <Widget>[
             const Icon(
@@ -184,19 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(buttonText)
           ],
-        ),
-        style: TextButton.styleFrom(foregroundColor: Colors.black),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Webcam(),
-              settings: RouteSettings(
-                arguments: selection,
-              ),
-            ),
-          );
-        });
+        ));
   }
 
   buildTemperatureGalleryButtons() {
@@ -218,15 +242,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   buildGalleryButton() {
     return TextButton(
-        child: Column(
-          children: <Widget>[
-            Icon(
-              Icons.collections,
-              size: 40,
-            ),
-            Text('Bildergalerie')
-          ],
-        ),
         style: TextButton.styleFrom(foregroundColor: Colors.black),
         onPressed: () {
           Navigator.push(
@@ -235,20 +250,20 @@ class _MyHomePageState extends State<MyHomePage> {
               builder: (context) => ImageGallery(),
             ),
           );
-        });
+        },
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.collections,
+              size: 40,
+            ),
+            Text('Bildergalerie')
+          ],
+        ));
   }
 
   buildTemperatureButton() {
     return TextButton(
-        child: Column(
-          children: <Widget>[
-            Icon(
-              Icons.equalizer,
-              size: 40,
-            ),
-            Text('Temperatur\n(letzte 24h)')
-          ],
-        ),
         style: TextButton.styleFrom(foregroundColor: Colors.black),
         onPressed: () {
           Navigator.push(
@@ -257,6 +272,40 @@ class _MyHomePageState extends State<MyHomePage> {
               builder: (context) => TemperatureView(),
             ),
           );
-        });
+        },
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.equalizer,
+              size: 40,
+            ),
+            Text('Temperatur\n(letzte 24h)')
+          ],
+        ));
+  }
+
+  buildRoomButton(String roomName) {
+    return TextButton(
+        style: TextButton.styleFrom(foregroundColor: Colors.black),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ZimmerView(),
+              settings: RouteSettings(
+                arguments: roomName,
+              ),
+            ),
+          );
+        },
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.home,
+              size: 40,
+            ),
+            Text(roomName)
+          ],
+        ));
   }
 }

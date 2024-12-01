@@ -1,11 +1,12 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Webcam extends StatefulWidget {
-  const Webcam({super.key});  
+  final WebcamSelection selection;
+
+  const Webcam({super.key, required this.selection});
   @override
-   State<Webcam> createState() => _WebcamState(); 
+  State<Webcam> createState() => _WebcamState();
 }
 
 enum WebcamSelection { tal, berg, pantal, felsen }
@@ -22,11 +23,7 @@ class _WebcamState extends State<Webcam> {
 
   @override
   Widget build(BuildContext context) {
-    final WebcamSelection selection = WebcamSelection.berg; // JLITODO ModalRoute.of(context).settings.arguments;
-    final Completer<WebViewController> _controller =
-        Completer<WebViewController>();
-
-    switch (selection) {
+    switch (widget.selection) {
       case WebcamSelection.berg:
         _webcamlink = bergurl;
         title = 'Webcam Berg';
@@ -53,26 +50,23 @@ class _WebcamState extends State<Webcam> {
       _appbarvisible = true;
     }
 
-WebViewController controller = WebViewController()
-  ..setJavaScriptMode(JavaScriptMode.unrestricted)
-  ..setNavigationDelegate(
-    NavigationDelegate(
-      onProgress: (int progress) {
-        // Update loading bar.
-      },
-      onPageStarted: (String url) {},
-      onPageFinished: (String url) {},
-      onHttpError: (HttpResponseError error) {},
-      onWebResourceError: (WebResourceError error) {},
-      onNavigationRequest: (NavigationRequest request) {
-        if (request.url.startsWith('https://www.youtube.com/')) {
-          return NavigationDecision.prevent;
-        }
-        return NavigationDecision.navigate;
-      },
-    ),
-  )
-  ..loadRequest(Uri.parse('https://flutter.dev'));
+    WebViewController controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onHttpError: (HttpResponseError error) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(_webcamlink));
 
     return Scaffold(
       appBar: _appbarvisible

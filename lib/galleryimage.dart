@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-//import 'package:brandtnerhof/gallery.dart';
 
 class GalleryImage extends StatelessWidget {
   final String imageUrl;
