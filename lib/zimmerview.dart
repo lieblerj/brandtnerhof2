@@ -20,7 +20,7 @@ class _ZimmerViewState extends State<ZimmerView> {
     String roomLink = getRoomLink(roomName);
 
     WebViewController controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setJavaScriptMode(JavaScriptMode.disabled)
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
@@ -31,7 +31,7 @@ class _ZimmerViewState extends State<ZimmerView> {
           onHttpError: (HttpResponseError error) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
+            return NavigationDecision.prevent;
           },
         ),
       )

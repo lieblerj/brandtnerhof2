@@ -62,7 +62,7 @@ class _WebcamState extends State<Webcam> {
           onHttpError: (HttpResponseError error) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
+            return NavigationDecision.prevent;
           },
         ),
       )
