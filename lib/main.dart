@@ -142,19 +142,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: fonstsize),
                 ),
                 IconButton(
-                    icon: const Icon(Icons.mail),
-                    onPressed: () {} //=> android_intent.Intent()
-                    //   ..setAction(android_action.Action.ACTION_SEND)
-                    //   ..setType("message/rfc822")
-                    //   ..putExtra(Extra.EXTRA_EMAIL, ["office@brandtnerhof.at"])
-                    //   ..putExtra(
-                    //       Extra.EXTRA_SUBJECT, "Anfrage über Brandtnerhof App")
-                    //   ..startActivity(),
-                    ),
+                    icon: const Icon(Icons.mail), onPressed: () => openMail()),
               ],
             ),
           ],
         ));
+  }
+
+  openMail() {
+    const intent = AndroidIntent(
+      action: 'android.intent.action.SEND',
+      arguments: {
+        'android.intent.extra.SUBJECT': "Anfrage über Brandtnerhof App"
+      },
+      arrayArguments: {
+        'android.intent.extra.EMAIL': ["office@brandtnerhof.at"],
+      },
+      type: 'message/rfc822',
+    );
+    intent.launch();
   }
 
   buildAppartmentButtons() {
@@ -328,16 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
   buildBookingButtonBrowser() {
     return TextButton(
       style: TextButton.styleFrom(foregroundColor: Colors.black),
-      onPressed: () {}
-      //  => android_intent.Intent()
-      //   ..setAction(android_action.Action.ACTION_VIEW)
-      //   ..setData(Uri(
-      //       scheme: "https",
-      //       path:
-      //           "web4.deskline.net/accommodationpillerseetal/de/accommodation/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe",
-      //       queryParameters: {"lkcs": "W5427", "customToolboxHide": "true"}))
-      //   ..startActivity(),
-      ,
+      onPressed: () => openBookingLink(),
       child: Column(
         children: <Widget>[
           Icon(
@@ -348,6 +345,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  void openBookingLink() {
+    final intent = AndroidIntent(
+        action: 'action_view',
+        data: Uri(
+            scheme: "https",
+            path:
+                "//web4.deskline.net/accommodationpillerseetal/de/accommodation/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe",
+            queryParameters: {
+              "lkcs": "W5427",
+              "customToolboxHide": "true"
+            }).toString(),
+        package: 'com.android.chrome');
+    intent.launch();
   }
 
   buildAvailabilityButton() {
