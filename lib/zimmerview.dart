@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ZimmerView extends StatefulWidget {
-  const ZimmerView({super.key});
+  final String roomName;
+  const ZimmerView({super.key, required this.roomName});
 
   @override
   _ZimmerViewState createState() => _ZimmerViewState();
@@ -15,9 +16,8 @@ class _ZimmerViewState extends State<ZimmerView> {
 
   @override
   Widget build(BuildContext context) {
-    final String roomName = 'Waidring';
-    String title = getRoomTitle(roomName);
-    String roomLink = getRoomLink(roomName);
+    String title = getRoomTitle(widget.roomName);
+    String roomLink = getRoomLink(widget.roomName);
 
     WebViewController controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.disabled)

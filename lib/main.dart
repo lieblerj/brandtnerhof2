@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'webcam.dart';
 import 'gallery.dart';
 import 'temperature.dart';
-//import 'zimmerview.dart';
 import 'about.dart';
-import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Brandtnerhof',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green.shade700),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Brandtnerhof Waidring'),
@@ -79,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
             buildWebcamButtons(),
             buildTemperatureGalleryButtons(),
             buildAppartmentButtons(),
-            // buildBookingButtons(),
+            buildBookingButtons(),
             buildContactInformation(),
           ],
         ));
@@ -291,7 +289,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ZimmerView(),
+              builder: (context) => ZimmerView(roomName: roomName),
               settings: RouteSettings(
                 arguments: roomName,
               ),
@@ -305,6 +303,74 @@ class _MyHomePageState extends State<MyHomePage> {
               size: 40,
             ),
             Text(roomName)
+          ],
+        ));
+  }
+
+  buildBookingButtons() {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Text('Buchungsmöglichkeit'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              buildAvailabilityButton(),
+              buildBookingButtonBrowser(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildBookingButtonBrowser() {
+    return TextButton(
+      style: TextButton.styleFrom(foregroundColor: Colors.black),
+      onPressed: () {}
+      //  => android_intent.Intent()
+      //   ..setAction(android_action.Action.ACTION_VIEW)
+      //   ..setData(Uri(
+      //       scheme: "https",
+      //       path:
+      //           "web4.deskline.net/accommodationpillerseetal/de/accommodation/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe",
+      //       queryParameters: {"lkcs": "W5427", "customToolboxHide": "true"}))
+      //   ..startActivity(),
+      ,
+      child: Column(
+        children: <Widget>[
+          Icon(
+            Icons.shopping_cart,
+            size: 40,
+          ),
+          Text('Wohnung\nbuchen')
+        ],
+      ),
+    );
+  }
+
+  buildAvailabilityButton() {
+    return TextButton(
+        style: TextButton.styleFrom(foregroundColor: Colors.black),
+        onPressed: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => FeratelView(),
+          //     settings: RouteSettings(
+          //       arguments: FeratelPage.verfuegbarkeit,
+          //     ),
+          //   ),
+          // );
+        },
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.event,
+              size: 40,
+            ),
+            Text('Verfügbarkeit\nanzeigen')
           ],
         ));
   }
