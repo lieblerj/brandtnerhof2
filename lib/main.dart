@@ -193,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               buildWebcamButton('Berg', WebcamSelection.berg),
               buildWebcamButton('Tal', WebcamSelection.tal),
-              buildWebcamButton('Tal Panorama', WebcamSelection.pantal),
+              buildWebcamButton('Tal\nPanorama', WebcamSelection.pantal),
               buildWebcamButton('Felsen', WebcamSelection.felsen),
             ],
           ),
@@ -362,20 +362,20 @@ class _MyHomePageState extends State<MyHomePage> {
     intent.launch();
   }
 
+  void openCalendarLink() {
+    final intent = AndroidIntent(
+      action: 'action_view',
+      data: Uri.encodeFull(
+        "https://web4.deskline.net/accommodationpillerseetal/de/availabilitycalendar/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe?lkcs=W5427&visibleMonths=4",
+      ),
+    );
+    intent.launch();
+  }
+
   buildAvailabilityButton() {
     return TextButton(
         style: TextButton.styleFrom(foregroundColor: Colors.black),
-        onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => FeratelView(),
-          //     settings: RouteSettings(
-          //       arguments: FeratelPage.verfuegbarkeit,
-          //     ),
-          //   ),
-          // );
-        },
+        onPressed: () => openCalendarLink(),
         child: Column(
           children: <Widget>[
             Icon(
