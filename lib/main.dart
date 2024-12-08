@@ -103,14 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 IconButton(
                     icon: const Icon(Icons.map),
-                    onPressed: () {} //=> android_intent.Intent()
-                    //   ..setAction(android_action.Action.ACTION_VIEW)
-                    //   ..setData(Uri(
-                    //       scheme: 'geo',
-                    //       path: '47.58222,12.62509',
-                    //       queryParameters: {'z': '18'}))
-                    //   ..startActivity(),
-                    ),
+                    onPressed: () => openMapLink()),
               ],
             ),
             Row(
@@ -349,16 +342,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void openBookingLink() {
     final intent = AndroidIntent(
-        action: 'action_view',
-        data: Uri(
-            scheme: "https",
-            path:
-                "//web4.deskline.net/accommodationpillerseetal/de/accommodation/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe",
-            queryParameters: {
-              "lkcs": "W5427",
-              "customToolboxHide": "true"
-            }).toString(),
-        package: 'com.android.chrome');
+      action: 'action_view',
+      data: Uri(
+          scheme: "https",
+          path:
+              "//web4.deskline.net/accommodationpillerseetal/de/accommodation/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe",
+          queryParameters: {
+            "lkcs": "W5427",
+            "customToolboxHide": "true"
+          }).toString(),
+    );
     intent.launch();
   }
 
@@ -368,6 +361,14 @@ class _MyHomePageState extends State<MyHomePage> {
       data: Uri.encodeFull(
         "https://web4.deskline.net/accommodationpillerseetal/de/availabilitycalendar/detail/PIL/e6559a02-6427-45ea-94ae-553a7f630cf6/Brandtnerhof__Betriebe?lkcs=W5427&visibleMonths=4",
       ),
+    );
+    intent.launch();
+  }
+
+  void openMapLink({int zoomLevel = 18}) {
+    final intent = AndroidIntent(
+      action: 'action_view',
+      data: Uri.encodeFull('geo:47.58222,12.62509?z=$zoomLevel'),
     );
     intent.launch();
   }
